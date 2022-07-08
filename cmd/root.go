@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"os"
 
 	"github.com/jcbritobr/james/dengine"
 	"github.com/spf13/cobra"
@@ -21,7 +21,13 @@ var (
 			enBuilder.AddField(dengine.TerminalEntry, opTerminal)
 			enBuilder.AddField(dengine.TypeEntry, opType)
 			data := enBuilder.BuildFileData()
-			fmt.Println(data)
+			file, err := os.Create(opFilename)
+
+			if err != nil {
+				panic(err)
+			}
+
+			file.WriteString(data)
 		},
 	}
 
@@ -31,6 +37,7 @@ var (
 	opType     string
 	opTerminal string
 	opIcon     string
+	opFilename string
 )
 
 func init() {
@@ -40,6 +47,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&opType, "type", "t", "Application", "The --type -t sets Type entry on desktop file")
 	rootCmd.PersistentFlags().StringVarP(&opTerminal, "terminal", "r", "false", "The --terminal -r sets Terminal entry on desktop file")
 	rootCmd.PersistentFlags().StringVarP(&opIcon, "icon", "i", "default", "The --icon -i sets Icon entry on desktop file")
+	rootCmd.PersistentFlags().StringVarP(&opFilename, "filename", "f", "default", "The --filename -f creates the <filename>.desktop")
 }
 
 func Execute() error {

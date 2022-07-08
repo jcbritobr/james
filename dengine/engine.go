@@ -29,9 +29,12 @@ type DesktopData struct {
 }
 
 func NewDesktopData() *DesktopData {
-	return &DesktopData{
+	de := &DesktopData{
 		buffer: make([]fileData, 0),
 	}
+
+	de.AddField(DesktopEntry, "")
+	return de
 }
 
 func (d *DesktopData) AddField(key, value string) {
