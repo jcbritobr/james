@@ -2,8 +2,6 @@ package dengine
 
 import "bytes"
 
-type DesktopField = uint8
-
 const (
 	DesktopEntry              = "[Desktop Entry]"
 	NameEntry                 = "Name="
