@@ -14,12 +14,12 @@ var (
 		Long:    "James is a CLI for create gnome desktop launchers",
 		Run: func(cmd *cobra.Command, args []string) {
 
-			setupField := func(flag, field string, engine *dengine.DesktopData) {
+			setupField := func(flag, field, value string, engine *dengine.DesktopData) {
 				isChanged := func(flag string) bool {
 					return cmd.Flags().Lookup(flag).Changed
 				}
 				if isChanged(flag) {
-					engine.AddField(flag, field)
+					engine.AddField(field, field)
 				}
 			}
 
@@ -28,8 +28,8 @@ var (
 			enBuilder.AddField(dengine.TerminalEntry, opTerminal)
 			enBuilder.AddField(dengine.ExecEntry, opExec)
 			enBuilder.AddField(dengine.TypeEntry, opType)
-			setupField("comment", dengine.CommentEntry, enBuilder)
-			setupField("icon", dengine.CommentEntry, enBuilder)
+			setupField("comment", opComment, dengine.CommentEntry, enBuilder)
+			setupField("icon", opIcon, dengine.IconEntry, enBuilder)
 
 			data := enBuilder.BuildFileData()
 			file, err := os.Create(opFilename)

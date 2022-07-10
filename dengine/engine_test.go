@@ -24,7 +24,6 @@ func TestBuildFileData(t *testing.T) {
 	// Then a file data as string must be built with all buffer content
 
 	ddata := NewDesktopData()
-	ddata.AddField(DesktopEntry, "")
 	ddata.AddField(NameEntry, "Blender")
 	ddata.AddField(ExecEntry, "blender")
 	ddata.AddField(IconEntry, "blender.svg")
@@ -48,11 +47,11 @@ func TestFillDesktopDataBuffer(t *testing.T) {
 	// Then the buffer cant be nil or empy and the buffer needs to have the exact
 	// fields thats was appended to its buffer
 
-	ddata := NewDesktopData()
-	ddata.AddField(DesktopEntry, "")
+	ddata := NewDesktopData() // we have appended [Desktop Entry] by default
 	ddata.AddField(NameEntry, "Blender")
+	ddata.AddField(ExecEntry, "blender")
 	assert.NotNil(t, ddata.buffer)
-	assert.Equal(t, 2, len(ddata.buffer))
+	assert.Equal(t, 3, len(ddata.buffer))
 	assert.Equal(t, "", ddata.buffer[0].value)
 	assert.Equal(t, "Blender", ddata.buffer[1].value)
 }
