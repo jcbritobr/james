@@ -19,7 +19,7 @@ var (
 					return cmd.Flags().Lookup(flag).Changed
 				}
 				if isChanged(flag) {
-					engine.AddField(field, field)
+					engine.AddField(field, value)
 				}
 			}
 
@@ -28,8 +28,8 @@ var (
 			enBuilder.AddField(dengine.TerminalEntry, opTerminal)
 			enBuilder.AddField(dengine.ExecEntry, opExec)
 			enBuilder.AddField(dengine.TypeEntry, opType)
-			setupField("comment", opComment, dengine.CommentEntry, enBuilder)
-			setupField("icon", opIcon, dengine.IconEntry, enBuilder)
+			setupField("comment", dengine.CommentEntry, opComment, enBuilder)
+			setupField("icon", dengine.IconEntry, opIcon, enBuilder)
 
 			data := enBuilder.BuildFileData()
 			file, err := os.Create(opFilename)
